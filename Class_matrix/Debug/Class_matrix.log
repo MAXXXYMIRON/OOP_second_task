@@ -1,0 +1,3 @@
+﻿  ClassMatrix.cpp
+c:\users\knigh\desktop\oop\class_matrix\class_matrix\classmatrix.cpp(4): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+  Class_matrix.vcxproj -> C:\Users\KNIGH\Desktop\OOP\Class_matrix\Debug\Class_matrix.exe
