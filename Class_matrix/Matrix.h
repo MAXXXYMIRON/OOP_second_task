@@ -39,7 +39,7 @@ public:
 	//Текущая матрица преобразуется в транспонированную, или диагональную, или обратную
 	void Transpose();
 	void Diagonal();
-	void Revers();
+	void Inverse();
 	//Вернет определитель матрицы, если та - квадратная
 	double Detr();
 
@@ -47,15 +47,29 @@ public:
 	std::vector<double> GetString(unsigned Row);
 	void SetString(unsigned Row, std::vector<double> Str);
 
-	//Полученное значение запишет в новую матрицу
+	//Полученное значение запишет в текущую матрицу
 	void operator += (const Matrix& Matr2);
 	void operator -= (const Matrix& Matr2);
 	void operator *= (const Matrix& Matr2);
 
-	//Полученное значение запишет в новую матрицу
+	//Полученное значение запишет в текущую матрицу
 	void operator += (double Value);
 	void operator -= (double Value);
 	void operator *= (double Value);
 	void operator /= (double Value);
+
+	void Display();
+
+private:
+	//Проверка на не выход индекса за границы матрицы
+	bool WithinBorders(unsigned IndexRow, unsigned IndexCol);
+	//Проверка на равенстнво матриц
+	bool EqualMatrix(matrix Matr1, matrix Matr2) const;
+	//Проверка на равенство строки столбцу
+	bool EqualRowCol(matrix Matr1, matrix Matr2) const;
+	//Проверка на не ступенчатость матрицы
+	bool RectMatrix(matrix Matr1) const;
+	//Проверка матрицы на квадратность
+	bool SquareMatrix(matrix Matr1);
 };
 
