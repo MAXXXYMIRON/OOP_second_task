@@ -1,6 +1,8 @@
 #pragma once
 #include<iostream>
 #include <vector>
+#include <math.h>
+#include <ctime>
 
 typedef std::vector<std::vector<double>> matrix;
 
@@ -31,17 +33,17 @@ public:
 	Matrix operator * (const Matrix& Matr2) const;
 
 	//Присвоит полученое значение новой матрице
-	Matrix Add(double Value);
-	Matrix Sub(double Value);
-	Matrix Mul(double Value);
-	Matrix Div(double Value);
+	Matrix Add(double Value) const;
+	Matrix Sub(double Value) const;
+	Matrix Mul(double Value) const;
+	Matrix Div(double Value) const;
 
 	//Текущая матрица преобразуется в транспонированную, или диагональную, или обратную
 	void Transpose();
 	void Diagonal();
 	void Inverse();
 	//Вернет определитель матрицы, если та - квадратная
-	double Detr();
+	double Detr() const;
 
 	//Получить или установить строку матрицы
 	std::vector<double> GetString(unsigned Row);
@@ -64,12 +66,25 @@ private:
 	//Проверка на не выход индекса за границы матрицы
 	bool WithinBorders(unsigned IndexRow, unsigned IndexCol);
 	//Проверка на равенстнво матриц
-	bool EqualMatrix(matrix Matr1, matrix Matr2) const;
+	bool EqualMatrix(const matrix& Matr1, const matrix& Matr2) const;
 	//Проверка на равенство строки столбцу
-	bool EqualRowCol(matrix Matr1, matrix Matr2) const;
+	bool EqualRowCol(const matrix& Matr1, const matrix& Matr2) const;
 	//Проверка на не ступенчатость матрицы
-	bool RectMatrix(matrix Matr1) const;
+	bool RectMatrix(const matrix& Matr1) const;
 	//Проверка матрицы на квадратность
-	bool SquareMatrix(matrix Matr1);
-};
+	bool SquareMatrix(const matrix& Matr1) const;
 
+	//Определитель матрицы 2 на 2
+	double Detr(const matrix& M) const;
+	//Нахождение определителей миноров матрицы
+	double Detr(const matrix& M, unsigned Row, unsigned Col) const;
+
+	//Проверка на повторное использование строки, для нахождения обратной матрицы
+	bool RepeatUsedLine(const std::vector<double>& ArrayIndexLine, unsigned IndexLine);
+	//Деление строки матрицы на число
+	std::vector<double> LineDivNumber(const std::vector<double>& Line, double Number);
+	//Вычитание строк, одна из которых домножена на Index эл. первой
+	std::vector<double> SubLine(const std::vector<double>& Line1, const std::vector<double>& Line2, unsigned Index);
+	//Выравнивание еденичной матрицы
+	void Unit(matrix& Matr1);
+};
