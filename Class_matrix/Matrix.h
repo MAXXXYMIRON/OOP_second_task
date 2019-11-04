@@ -16,9 +16,21 @@ public:
 	~Matrix();
 	Matrix(unsigned Row, unsigned Col);
 
+	enum ERRORS
+	{
+		IndexOutsideMatrix = 1, //Индекс вне границ матрицы
+		MatricesNotEqual = 2, //Порядки матриц не равны
+		LineNotEqualColoumn = 3, //Строка матрицы не равна стобцу другой матрицы
+		DivByZero = 4, //Деление на ноль
+		OffLineIndex = 5, //Индекс для доступа к строке, вне границ строк матрицы
+		NotRectMatrix = 6, //Матрица не прямоугольная
+		NotSquareMatric = 7, //Матрица не квадратная
+		DeterminateIsZero = 8 //Опредеоитель равен нулю
+	};
+
 	//Получить или установить эл. матрицы
-	double GetIndex(unsigned n, unsigned m);
-	void SetIndex(unsigned n, unsigned m, double Value);
+	double GetElement(unsigned n, unsigned m);
+	void SetElement(unsigned n, unsigned m, double Value);
 
 	//Задание значений эл. матрицы
 	//Все эл. одним значением
@@ -38,9 +50,8 @@ public:
 	Matrix Mul(double Value) const;
 	Matrix Div(double Value) const;
 
-	//Текущая матрица преобразуется в транспонированную, или диагональную, или обратную
+	//Текущая матрица преобразуется в транспонированную или обратную
 	void Transpose();
-	void Diagonal();
 	void Inverse();
 	//Вернет определитель матрицы, если та - квадратная
 	double Detr() const;
@@ -60,11 +71,9 @@ public:
 	void operator *= (double Value);
 	void operator /= (double Value);
 
-	void Display();
-
 private:
 	//Проверка на не выход индекса за границы матрицы
-	bool WithinBorders(unsigned IndexRow, unsigned IndexCol);
+	bool WithinBorders(unsigned IndexRow, unsigned IndexCol) const;
 	//Проверка на равенстнво матриц
 	bool EqualMatrix(const matrix& Matr1, const matrix& Matr2) const;
 	//Проверка на равенство строки столбцу
@@ -85,6 +94,6 @@ private:
 	std::vector<double> LineDivNumber(const std::vector<double>& Line, double Number);
 	//Вычитание строк, одна из которых домножена на Index эл. первой
 	std::vector<double> SubLine(const std::vector<double>& Line1, const std::vector<double>& Line2, unsigned Index);
-	//Выравнивание еденичной матрицы
+	//Выравнивание еденичной матрицы, т.к. еденицы могут находится не на главной диагонали
 	void Unit(matrix& Matr1);
 };
