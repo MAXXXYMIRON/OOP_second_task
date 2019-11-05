@@ -60,7 +60,7 @@ void Matrix::RandValue(int FirstLim, int LastLim)
 //ѕрисвоит полученое значение новой матрице
 Matrix Matrix::operator + (const Matrix& Matr2) const
 {
-	if (EqualMatrix(Matr,Matr2.Matr)) throw MatricesNotEqual;
+	if (!EqualMatrix(Matr,Matr2.Matr)) throw MatricesNotEqual;
 
 	Matrix Matr3;
 	Matr3.Matr = Matr;
@@ -157,7 +157,7 @@ Matrix Matrix::Div(double Value) const
 
 
 
-//“екуща€ матрица преобразуетс€ в транспонированную, или диагональную, или обратную
+//“екуща€ матрица преобразуетс€ в транспонированную или обратную
 void Matrix::Transpose()
 {
 	if (!RectMatrix(Matr)) throw NotRectMatrix;
@@ -312,7 +312,7 @@ double Matrix::Detr(const matrix& M, unsigned Row, unsigned Col) const
 	//¬ернем определитель минора 2х2
 	if (Minor.size() == 2) return (pow(-1, Row + Col) * M[Row][Col]) * Detr(Minor);
 
-	//»наче продожим выписывать миноры
+	//»наче продожим выписывать миноры уже из текущего
 	double Determinate = 0;
 	for (unsigned i = 0; i < Minor[0].size(); i++)
 		Determinate += (pow(-1, Row + Col) * M[Row][Col]) * Detr(Minor, 0, i);
