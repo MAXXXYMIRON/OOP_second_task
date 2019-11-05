@@ -107,4 +107,7 @@ private:
 	std::vector<double> SubLine(const std::vector<double>& Line1, const std::vector<double>& Line2, unsigned Index);
 	//¬ыравнивание еденичной матрицы, т.к. еденицы могут находитс€ не на главной диагонали
 	void Unit(matrix& Matr1);
+
+	//¬ернет определЄнную четверть матрицы
+	matrix Block(unsigned IndexRow, unsigned IndexCol) const;
 };

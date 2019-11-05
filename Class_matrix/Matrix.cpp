@@ -290,9 +290,33 @@ void Matrix::InverseBloking()
 {
 	if (!EvenNumbOfEl(Matr)) throw OddElementsMatrix;
 
+	Matrix M, N, P, Q;
+
+	M.SetMatrix(Block(0, 0));
+	N.SetMatrix(Block(0, Matr.size() / 2));
+	P.SetMatrix(Block(Matr.size() / 2, 0));
+	Q.SetMatrix(Block(Matr.size() / 2, Matr.size() / 2));
+	
+
 
 }
 
+//Вернет определённую четверть матрицы
+matrix Matrix::Block(unsigned IndexRow, unsigned IndexCol) const
+{
+	matrix TempMatr;
+	TempMatr.resize(Matr.size() / 2);
+	for (unsigned i = 0; i < TempMatr.size(); i++)
+		TempMatr[i].resize(TempMatr.size());
+
+	for (unsigned i = 0; i < TempMatr.size(); i++)
+		for (unsigned j = 0; j < TempMatr.size(); j++)
+		{
+			TempMatr[i][j] = Matr[i + IndexRow][j + IndexCol];
+		}
+
+	return TempMatr;
+}
 
 
 
