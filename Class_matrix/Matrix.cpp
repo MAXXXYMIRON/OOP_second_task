@@ -16,6 +16,17 @@ Matrix::Matrix(unsigned Row, unsigned Col)
 
 
 
+//Задать и получить матрицу
+matrix Matrix::GetMatrix()
+{
+	return Matr;
+}
+void Matrix::SetMatrix(matrix Matr1)
+{
+	Matr = Matr1;
+}
+
+
 
 //Получить или установить эл. матрицы
 double Matrix::GetElement(unsigned n, unsigned m)
@@ -272,6 +283,19 @@ void Matrix::Unit(matrix& Matr1)
 }
 
 
+
+
+//Приведение к обратной методом разбиения на блоки
+void Matrix::InverseBloking()
+{
+	if (!EvenNumbOfEl(Matr)) throw OddElementsMatrix;
+
+
+}
+
+
+
+
 //Вернет определитель матрицы, если та - квадратная
 double Matrix::Detr() const
 {
@@ -453,7 +477,14 @@ bool Matrix::RectMatrix(const matrix& Matr1) const
 //Проверка матрицы на квадратность
 bool Matrix::SquareMatrix(const matrix& Matr1) const
 {
-	if (!RectMatrix(Matr1)) return false; //Для начала матрица не должна быть стпенчатой
+	if (!RectMatrix(Matr1)) return false; //Для начала матрица не должна быть стуенчатой
 	if (Matr1.size() != Matr1[0].size()) return false;
+	return true;
+}
+//Проверка на четное кол-во эл. в матрице
+bool Matrix::EvenNumbOfEl(const matrix& Matr1) const
+{
+	if (!SquareMatrix(Matr1)) return false;
+	if ((Matr1.size() % 2) != 0) return false;
 	return true;
 }

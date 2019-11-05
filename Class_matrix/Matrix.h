@@ -25,8 +25,13 @@ public:
 		OffLineIndex = 5, //Индекс для доступа к строке, вне границ строк матрицы
 		NotRectMatrix = 6, //Матрица не прямоугольная
 		NotSquareMatric = 7, //Матрица не квадратная
-		DeterminateIsZero = 8 //Опредеоитель равен нулю
+		DeterminateIsZero = 8, //Определитель равен нулю
+		OddElementsMatrix = 9 //Матрица с нечетным количеством эл.
 	};
+
+	//Задать и получить матрицу
+	matrix GetMatrix();
+	void SetMatrix(matrix Matr1);
 
 	//Получить или установить эл. матрицы
 	double GetElement(unsigned n, unsigned m);
@@ -53,6 +58,10 @@ public:
 	//Текущая матрица преобразуется в транспонированную или обратную
 	void Transpose();
 	void Inverse();
+
+	//Приведение к обратной методом разбиения на блоки (Нужно для Вычмата)
+	void InverseBloking();
+
 	//Вернет определитель матрицы, если та - квадратная
 	double Detr() const;
 
@@ -82,6 +91,8 @@ private:
 	bool RectMatrix(const matrix& Matr1) const;
 	//Проверка матрицы на квадратность
 	bool SquareMatrix(const matrix& Matr1) const;
+	//Проверка на четное кол-во эл. в матрице
+	bool EvenNumbOfEl(const matrix& Matr1) const;
 
 	//Определитель матрицы 2 на 2
 	double Detr(const matrix& M) const;
