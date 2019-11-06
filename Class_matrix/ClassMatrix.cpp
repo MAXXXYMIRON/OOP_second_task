@@ -46,42 +46,47 @@ void main()
 		{
 		case Matrix::IndexOutsideMatrix:
 		{
-			cout << "Ошибка1" << endl;
+			cout << "Индекс вне границ матрицы" << endl;
 		}
 			break;
 		case Matrix::MatricesNotEqual:
 		{
-			cout << "Ошибка2" << endl;
+			cout << "Порядки матриц не равны" << endl;
 		}
 			break;
 		case Matrix::LineNotEqualColoumn:
 		{
-			cout << "Ошибка3" << endl;
+			cout << "Длина строки первой матрицы не равна длине столбца второй" << endl;
 		}
 			break;
 		case Matrix::DivByZero:
 		{
-			cout << "Ошибка4" << endl;
+			cout << "Деление на ноль недопустимо" << endl;
 		}
 			break;
 		case Matrix::OffLineIndex:
 		{
-			cout << "Ошибка5" << endl;
+			cout << "Индекс вне границ кол-ва строк матрицы" << endl;
 		}
 			break;
 		case Matrix::NotRectMatrix:
 		{
-			cout << "Ошибка6" << endl;
+			cout << "Матрица не прямоугольная" << endl;
 		}
 			break;
 		case Matrix::NotSquareMatric:
 		{
-			cout << "Ошибка7" << endl;
+			cout << "Матрица не квадратная" << endl;
 		}
 			break;
 		case Matrix::DeterminateIsZero:
 		{
-			cout << "Ошибка8" << endl;
+			cout << "Определитель матрицы равен нулю" << endl;
+		}
+			break;
+		case Matrix::OddElementsMatrix:
+		{
+			cout << "Матрица не квадратная или содежит нечетное кол-во эл." << endl;
 		}
 			break;
 		default:

@@ -168,6 +168,39 @@ Matrix Matrix::Div(double Value) const
 
 
 
+//Альтернатива вшеопределённым
+Matrix Matrix::operator - () const //Домножит на -1
+{
+	return Mul(-1);
+}
+Matrix Matrix::operator - (double Value) const
+{
+	return Sub(Value);
+}
+Matrix Matrix::operator + (double Value) const
+{
+	return Add(Value);
+}
+Matrix Matrix::operator * (double Value) const
+{
+	return Mul(Value);
+}
+Matrix Matrix::operator / (double Value) const
+{
+	return Div(Value);
+}
+Matrix Matrix::operator ++ () const //+1
+{
+	return Add(1);
+}
+Matrix Matrix::operator -- () const //-1
+{
+	return Sub(1);
+}
+
+
+
+
 //Текущая матрица преобразуется в транспонированную или обратную
 void Matrix::Transpose()
 {
@@ -289,18 +322,43 @@ void Matrix::Unit(matrix& Matr1)
 void Matrix::InverseBloking()
 {
 	if (!EvenNumbOfEl(Matr)) throw OddElementsMatrix;
+	if (Detr() == 0) throw DeterminateIsZero;
 
-	Matrix M, N, P, Q;
+	Matrix M, N, P, Q,
+		   X, V, U, Y,
+		   MInverse, QInverse;
 
+	//Инициализируем блоки матрицы
 	M.SetMatrix(Block(0, 0));
 	N.SetMatrix(Block(0, Matr.size() / 2));
 	P.SetMatrix(Block(Matr.size() / 2, 0));
 	Q.SetMatrix(Block(Matr.size() / 2, Matr.size() / 2));
 	
+	//Приведём необходимые обратные матрицы
+	//Т.к. функция приведения к обратной изменяет экземпляр класса
+	//Пришлось создать отдельные экземпляры, для хранения обратных
+	MInverse = M;
+	MInverse.Inverse();
+	QInverse = Q;
+	QInverse.Inverse();
 
+	//Найдем значение элементов блоков обратной матрицы
+	X = M - (N * QInverse * P);
+	X.Inverse();
 
+	V = Q - (P * MInverse * N);
+	V.Inverse();
+
+	U = -V * P * MInverse;
+
+	Y = -X * N * QInverse;
+
+	//Запишем полученные блоки в матрицу
+	Block(0, 0, X.Matr);
+	Block(0, Matr.size() / 2, Y.Matr);
+	Block(Matr.size() / 2, 0, U.Matr);
+	Block(Matr.size() / 2, Matr.size() / 2, V.Matr);
 }
-
 //Вернет определённую четверть матрицы
 matrix Matrix::Block(unsigned IndexRow, unsigned IndexCol) const
 {
@@ -311,11 +369,16 @@ matrix Matrix::Block(unsigned IndexRow, unsigned IndexCol) const
 
 	for (unsigned i = 0; i < TempMatr.size(); i++)
 		for (unsigned j = 0; j < TempMatr.size(); j++)
-		{
 			TempMatr[i][j] = Matr[i + IndexRow][j + IndexCol];
-		}
 
 	return TempMatr;
+}
+//Запишет указанную матрицу в матрицу экземпляра
+void Matrix::Block(unsigned IndexRow, unsigned IndexCol, matrix TempMatr)
+{
+	for (unsigned i = 0; i < TempMatr.size(); i++)
+		for (unsigned j = 0; j < TempMatr.size(); j++)
+			Matr[i + IndexRow][j + IndexCol] = TempMatr[i][j];
 }
 
 

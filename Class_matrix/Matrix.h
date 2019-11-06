@@ -55,6 +55,15 @@ public:
 	Matrix Mul(double Value) const;
 	Matrix Div(double Value) const;
 
+	//Альтернатива вшеопределённым
+	Matrix operator - () const; //Домножит на -1
+	Matrix operator - (double Value) const;
+	Matrix operator + (double Value) const;
+	Matrix operator * (double Value) const;
+	Matrix operator / (double Value) const;
+	Matrix operator ++ () const; //+1
+	Matrix operator -- () const; //-1
+
 	//Текущая матрица преобразуется в транспонированную или обратную
 	void Transpose();
 	void Inverse();
@@ -110,4 +119,6 @@ private:
 
 	//Вернет определённую четверть матрицы
 	matrix Block(unsigned IndexRow, unsigned IndexCol) const;
+	//Запишет указанную матрицу в матрицу экземпляра
+	void Block(unsigned IndexRow, unsigned IndexCol, matrix TempMatr);
 };
